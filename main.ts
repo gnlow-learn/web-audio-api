@@ -1,15 +1,18 @@
 const audioContext = new AudioContext()
 
-const $audio = document.createElement("audio")
-$audio.setAttribute("src", "./sample.mp3")
+const audioBuffer = await fetch("./sample.mp3")
+    .then(res => res.arrayBuffer())
+    .then(buffer => audioContext.decodeAudioData(buffer))
 
-const audioSourceNode = audioContext.createMediaElementSource($audio)
-
-audioSourceNode
-    .connect(audioContext.destination)
+const play = () => {
+    const source = audioContext.createBufferSource()
+    source.buffer = audioBuffer
+    source.connect(audioContext.destination)
+    source.start(audioContext.currentTime, 20, 1)
+}
 
 const $button = document.querySelector("button")!
 
 $button.addEventListener("click", () => {
-    $audio.play()
+    play()
 })
