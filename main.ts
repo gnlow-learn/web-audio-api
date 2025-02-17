@@ -1,18 +1,21 @@
-const audioContext = new AudioContext()
+const ctx = new AudioContext()
+const gain = ctx.createGain()
+gain.connect(ctx.destination)
 
-const audioBuffer = await fetch("./sample.mp3")
-    .then(res => res.arrayBuffer())
-    .then(buffer => audioContext.decodeAudioData(buffer))
+const sine =
+() => {
+    const osc = ctx.createOscillator()
+    osc.type = "sine"
+    osc.frequency.setValueAtTime(440, ctx.currentTime)
 
-const play = () => {
-    const source = audioContext.createBufferSource()
-    source.buffer = audioBuffer
-    source.connect(audioContext.destination)
-    source.start(audioContext.currentTime, 20, 1)
+    osc.connect(gain)
+
+    return osc
 }
 
 const $button = document.querySelector("button")!
 
 $button.addEventListener("click", () => {
-    play()
+    const o1 = sine()
+    o1.start()
 })
