@@ -15,7 +15,10 @@ export const FreqVis =
             const [w, h] = [canvas.width, canvas.height]
             const canvasCtx = canvas.getContext("2d")!
 
-            const maxHz = 2000
+            const minHz = 100
+            const maxHz = 4000
+            const w0 = Math.log(maxHz / minHz)
+
             const hzPerItem = ctx.sampleRate / 2 / analyser.frequencyBinCount
 
             const arr = new Uint8Array(analyser.frequencyBinCount)
@@ -32,9 +35,9 @@ export const FreqVis =
                         ${Math.log2(f / 130) % 1 * 360}
                     )`
                     canvasCtx.fillRect(
-                        Math.log(x) * w / Math.log(maxHz),
+                        Math.log(f/minHz) * w / w0,
                         h,
-                        Math.log((x+1)/x) * w / Math.log(maxHz) * 0.8,
+                        Math.log((x+1)/x) * w / w0 * 0.8,
                         -y * (h - 10) / 255,
                     )
                 })
