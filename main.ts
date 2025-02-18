@@ -4,6 +4,7 @@ const gain = ctx.createGain()
 gain.gain.setValueAtTime(0.01, ctx.currentTime)
 
 const analyser = ctx.createAnalyser()
+analyser.fftSize = 2**12
 
 gain.connect(analyser)
     .connect(ctx.destination)
@@ -56,7 +57,7 @@ render(html`
                     canvasCtx.fillStyle = `oklch(
                         ${1 - y / 255 * 0.3}
                         0.1
-                        ${Math.log2(f / 261) % 1 * 360}
+                        ${Math.log2(f / 130) % 1 * 360}
                     )`
                     canvasCtx.fillRect(
                         x * w / arr.length,
@@ -71,7 +72,7 @@ render(html`
     <button
         @click=${() => {
             Array.from({ length: 10 }, (_, i) => {
-                sine(261 * (i+1)).start()
+                sine(260 * (i+1)).start()
             })
         }}
     >
