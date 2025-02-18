@@ -1,9 +1,14 @@
 const ctx = new AudioContext()
 
-const analyser = ctx.createAnalyser()
-analyser.connect(ctx.destination)
+const gain = ctx.createGain()
+gain.gain.setValueAtTime(0.1, ctx.currentTime)
 
-const input = analyser
+const analyser = ctx.createAnalyser()
+
+gain.connect(analyser)
+    .connect(ctx.destination)
+
+const input = gain
 
 const sine =
 (f: number) => {
@@ -42,7 +47,7 @@ render(html`
 
             const arr = new Uint8Array(maxHz / hzPerItem)
             while (true) {
-                await sleep(analyser.frequencyBinCount)
+                await tick()
                 analyser.getByteFrequencyData(arr)
                 
                 canvasCtx.clearRect(0, 0, w, h)
@@ -65,8 +70,14 @@ render(html`
     ></canvas>
     <button
         @click=${() => {
-            const o1 = sine(261)
-            o1.start()
+            sine(261).start()
+            sine(261*2).start()
+            sine(261*3).start()
+            sine(261*4).start()
+            sine(261*5).start()
+            sine(261*6).start()
+            sine(261*7).start()
+            sine(261*8).start()
         }}
     >
         hi
