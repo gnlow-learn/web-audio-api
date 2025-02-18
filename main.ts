@@ -13,9 +13,15 @@ const sine =
     return osc
 }
 
-const $button = document.querySelector("button")!
+import { html, render } from "https://esm.sh/lit-html@3.2.1"
 
-$button.addEventListener("click", () => {
-    const o1 = sine()
-    o1.start()
-})
+render(html`
+    <button
+        @click=${() => {
+            const o1 = sine()
+            o1.start()
+        }}
+    >
+        hi
+    </button>
+`, document.body)
