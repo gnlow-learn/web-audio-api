@@ -1,7 +1,7 @@
 const ctx = new AudioContext()
 
 const gain = ctx.createGain()
-gain.gain.setValueAtTime(0.1, ctx.currentTime)
+gain.gain.setValueAtTime(0.01, ctx.currentTime)
 
 const analyser = ctx.createAnalyser()
 
@@ -70,14 +70,9 @@ render(html`
     ></canvas>
     <button
         @click=${() => {
-            sine(261).start()
-            sine(261*2).start()
-            sine(261*3).start()
-            sine(261*4).start()
-            sine(261*5).start()
-            sine(261*6).start()
-            sine(261*7).start()
-            sine(261*8).start()
+            Array.from({ length: 10 }, (_, i) => {
+                sine(261 * (i+1)).start()
+            })
         }}
     >
         hi
