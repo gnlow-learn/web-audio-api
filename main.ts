@@ -1,7 +1,7 @@
 const ctx = new AudioContext()
 
 const gain = ctx.createGain()
-gain.gain.setValueAtTime(0.01, ctx.currentTime)
+gain.gain.setValueAtTime(0.08, ctx.currentTime)
 
 const analyser = ctx.createAnalyser()
 analyser.fftSize = 2**12
@@ -12,12 +12,16 @@ gain.connect(analyser)
 const input = gain
 
 const sine =
-(f: number) => {
+(f: number, db: number) => {
     const osc = ctx.createOscillator()
     osc.type = "sine"
     osc.frequency.setValueAtTime(f, ctx.currentTime)
 
-    osc.connect(input)
+    const gain = ctx.createGain()
+    gain.gain.setValueAtTime(db, ctx.currentTime)
+
+    osc .connect(gain)
+        .connect(input)
 
     return osc
 }
@@ -31,8 +35,8 @@ render(html`
     <button
         class="p(8) bg(#aad) r(8)"
         @click=${() => {
-            Array.from({ length: 10 }, (_, i) => {
-                sine(260 * (i+1)).start()
+            Array.from({ length: 100 }, (_, i) => {
+                sine(260 * (i+1), 1 / (i+1)**1.5).start()
             })
         }}
     >
