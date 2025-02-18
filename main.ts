@@ -29,9 +29,11 @@ const sine =
 import "https://esm.sh/adorable-css@1.6.2"
 import { html, render } from "./src/deps.ts"
 import { FreqVis } from "./src/FreqVis.ts"
+import { WaveVis } from "./src/WaveVis.ts"
 
 render(html`
     ${FreqVis(ctx, analyser)}
+    ${WaveVis(ctx, analyser)}
     <button
         class="p(8) bg(#aad) r(8)"
         @click=${() => {
