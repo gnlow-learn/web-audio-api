@@ -15,7 +15,7 @@ export const FreqVis =
             const [w, h] = [canvas.width, canvas.height]
             const canvasCtx = canvas.getContext("2d")!
 
-            const minHz = 100
+            const minHz = 200
             const maxHz = 4000
             const w0 = Math.log(maxHz / minHz)
 
@@ -30,14 +30,15 @@ export const FreqVis =
                 arr.forEach((y, x) => {
                     const f = x * hzPerItem
                     canvasCtx.fillStyle = `oklch(
-                        ${1 - y / 255 * 0.3}
-                        0.1
+                        0.7
+                        0.15
                         ${Math.log2(f / 130) % 1 * 360}
+                        / ${y / 255 * 0.7}
                     )`
                     canvasCtx.fillRect(
                         Math.log(f/minHz) * w / w0,
                         h,
-                        Math.log((x+1)/x) * w / w0 * 0.8,
+                        0.02 * w / w0 * y / 255,
                         -y * (h - 10) / 255,
                     )
                 })

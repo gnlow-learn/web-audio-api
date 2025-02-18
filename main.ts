@@ -4,7 +4,7 @@ const gain = ctx.createGain()
 gain.gain.setValueAtTime(0.08, ctx.currentTime)
 
 const analyser = ctx.createAnalyser()
-analyser.fftSize = 2**12
+analyser.fftSize = 2**14
 
 gain.connect(analyser)
     .connect(ctx.destination)
