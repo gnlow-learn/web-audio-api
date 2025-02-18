@@ -54,9 +54,10 @@ export const WaveVis =
                 canvasCtx.clearRect(0, 0, w, h)
                 canvasCtx.moveTo(0, h / 2)
                 canvasCtx.beginPath()
+
                 arr.forEach((y, i) => {
                     canvasCtx.lineTo(
-                        (i * secPerItem - ctx.currentTime % (1 / f0)) / windowSec * w,
+                        (i * secPerItem + ctx.currentTime % (1 / f0) - 1 / f0) / windowSec * w,
                         y / 255 * h * 2 - h/2,
                     )
                 })
