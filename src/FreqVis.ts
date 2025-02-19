@@ -16,7 +16,7 @@ export const FreqVis =
             const canvasCtx = canvas.getContext("2d")!
 
             const minHz = 200
-            const maxHz = 4000
+            const maxHz = 4300
             const w0 = Math.log(maxHz / minHz)
 
             const hzPerItem = ctx.sampleRate / 2 / analyser.frequencyBinCount

@@ -34,7 +34,7 @@ import { Pad } from "./src/Pad.ts"
 
 const nodes = 
     Array.from({ length: 16 }, (_, i) =>
-        sine(260 * (i+1), 1 / (i+1)**1.5)
+        sine(260 * (i+1), 1 / (i+1)**1)
     )
 
 render(html`

@@ -1,5 +1,14 @@
 import { html, ref } from "./deps.ts"
 
+const A = 100
+const gamma =
+(x: number) =>
+    Math.log(A*x+1)/Math.log(A+1)
+
+const unGamma =
+(y: number) =>
+    (Math.E**(y*Math.log(A+1))-1)/A
+
 const render =
 (canvas: HTMLCanvasElement, data: number[]) => {
     const canvasCtx = canvas.getContext("2d")!
@@ -13,13 +22,13 @@ const render =
             0.15
             ${Math.log2(i+1) % 1 * 360}
         )`
-        canvasCtx.fillRect(w/l*(i+0.1), h, w/l*0.8, -v*h)
+        canvasCtx.fillRect(w/l*(i+0.1), h, w/l*0.8, -gamma(v)*h)
     })
 }
 
 export const Pad =
 (onChange: (data: number[]) => void = () => {}) => {
-    const data = Array.from({ length: 16 }, (_, i) => 1 / (i+1)**1.5)
+    const data = Array.from({ length: 16 }, (_, i) => 1 / (i+1)**1)
     let isMouseDown = false
     return html`
         <canvas
@@ -54,7 +63,7 @@ export const Pad =
 
                 const l = data.length
 
-                data[Math.floor(x / (w / l))] = 1 - y / h
+                data[Math.floor(x / (w / l))] = unGamma(1 - y / h)
                 render(canvas, data)
                 onChange(data)
             }}
