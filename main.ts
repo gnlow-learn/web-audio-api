@@ -40,15 +40,15 @@ const nodes =
 render(html`
     ${FreqVis(ctx, analyser)}
     ${WaveVis(ctx, analyser)}
+    ${Pad(data => data.forEach((v, i) => {
+        nodes[i].gain.gain.setValueAtTime(v, ctx.currentTime)
+    }))}
     <button
         class="p(8) bg(#aad) r(8)"
         @click=${() => {
             nodes.forEach(({ osc }) => osc.start())
         }}
     >
-        hi
+        start
     </button>
-    ${Pad(data => data.forEach((v, i) => {
-        nodes[i].gain.gain.setValueAtTime(v, ctx.currentTime)
-    }))}
 `, document.body)
