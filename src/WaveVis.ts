@@ -32,7 +32,7 @@ export const WaveVis =
         width="2000"
         height="500"
         ${ref(async el => {
-            const windowSec = 0.1
+            const windowSec = 0.01
             
             const canvas = el as HTMLCanvasElement
             const [w, h] = [canvas.width, canvas.height]
