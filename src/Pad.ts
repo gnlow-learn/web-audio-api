@@ -8,7 +8,12 @@ const render =
     canvasCtx.clearRect(0, 0, w, h)
 
     data.forEach((v, i, { length: l }) => {
-        canvasCtx.fillRect(w/l*i, h, w/l, -v*h)
+        canvasCtx.fillStyle = `oklch(
+            0.8
+            0.15
+            ${Math.log2(i+1) % 1 * 360}
+        )`
+        canvasCtx.fillRect(w/l*(i+0.1), h, w/l*0.8, -v*h)
     })
 }
 
